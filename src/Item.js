@@ -2,7 +2,7 @@ export const AGED_BRIED = "Aged Brie";
 export const SULFURAS = "Sulfuras, Hand of Ragnaros";
 export const CONCERT_BACKSTAGE = "Backstage passes to a TAFKAL80ETC concert";
 
-export default class Item {
+class _AbstractItem {
   /**
    *
    * @param {string} name 
@@ -36,38 +36,10 @@ export default class Item {
     this.sellIn--
   }
 
-  updateQuality() {
-    const isConcertBackstage = this.name === CONCERT_BACKSTAGE
-    const isMaxQuality = quality => quality >= 50;
-    const hasQuality = quality => quality > 0;
-    const shouldDegradeQuality = hasQuality(this.quality) && !isConcertBackstage
-    const hasPassedSellInDay = (sellIn) => sellIn <= 0;
-
-        if (shouldDegradeQuality && !hasPassedSellInDay(this.sellIn)) {
-          this.quality = this.quality - 1;
-        } else if (shouldDegradeQuality && hasPassedSellInDay(this.sellIn)) {
-          this.quality = this.quality - 2;
-        } else if (isConcertBackstage) {
-          if (this.sellIn > 10 && !isMaxQuality(this.quality)) {
-            this.quality = this.quality +1
-          }
-          if (this.sellIn <= 10 && !isMaxQuality(this.quality)) {
-              this.quality = this.quality + 2;
-          }
-          if (this.sellIn <= 5 && !isMaxQuality(this.quality)) {
-              this.quality = this.quality + 1;
-          }
-          if (this.sellIn < 0) {
-            this.quality = 0;
-          }
-        }
-
-        this.subtractOneDay()
-
-  }
+  updateQuality() {}
 }
 
-export class Sulfuras extends Item {
+export class Sulfuras extends _AbstractItem {
   constructor(sellIn) {
     super(SULFURAS, sellIn, 80);
   }
@@ -75,7 +47,7 @@ export class Sulfuras extends Item {
   updateQuality() {}
 }
 
-export class AgedBrie extends Item {
+export class AgedBrie extends _AbstractItem {
   constructor(sellIn, quality) {
     super(AGED_BRIED, sellIn, quality);
   }
@@ -93,7 +65,7 @@ export class AgedBrie extends Item {
 }
 
 
-export class BackstageConcert extends Item {
+export class BackstageConcert extends _AbstractItem {
   constructor(sellIn, quality) {
     super(CONCERT_BACKSTAGE, sellIn, quality);
   }
@@ -113,5 +85,20 @@ export class BackstageConcert extends Item {
     }
 
     this.subtractOneDay();
+  }
+}
+
+export class RegularItem extends _AbstractItem {
+  constructor(name, sellIn, quality) {
+    super(name, sellIn, quality);
+  }
+
+  updateQuality() {
+    if (this.quality > 0 && !this.hasPassedSellInDay) {
+      this.quality = this.quality - 1;
+    } else if (this.quality > 0 && this.hasPassedSellInDay) {
+      this.quality = this.quality - 2;
+    }
+    this.subtractOneDay()
   }
 }
