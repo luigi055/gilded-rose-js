@@ -6,9 +6,9 @@ export class RegularItem extends _AbstractItem {
   }
 
   updateQuality() {
-    if (this.quality > 0 && !this.hasPassedSellInDay) {
+    if (!this.hasPassedSellInDay) {
       this.addQuality(-1);
-    } else if (this.quality > 0 && this.hasPassedSellInDay) {
+    } else {
       this.addQuality(-2);
     }
     this.subtractOneDay();

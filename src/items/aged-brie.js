@@ -7,10 +7,9 @@ export class AgedBrie extends _AbstractItem {
   }
 
   updateQuality() {
-    if (!this.isMaxQuality){
-      this.addQuality(1)
-    }
-    if (this.hasPassedSellInDay && !this.isMaxQuality) {
+    if (this.hasPassedSellInDay) {
+      this.addQuality(2)
+    } else {
       this.addQuality(1)
     }
 

@@ -33,7 +33,9 @@ export class _AbstractItem {
   }
 
   addQuality(numberToAdd) {
-    this.quality = Math.min(this.quality + numberToAdd, 50);
+    this.quality = this.quality > 0 
+      ? Math.min(this.quality + numberToAdd, 50)
+      : 0 ;
   }
 
   // Abstract method
