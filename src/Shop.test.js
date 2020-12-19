@@ -6,7 +6,7 @@ import {
   Sulfuras,
   AgedBrie,
   BackstageConcert,
-  RegularItem } from "./Item";
+  RegularItem } from "./items";
 
 describe("Testing Shop class", () => {
   describe("Test cases for regular item", () => {

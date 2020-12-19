@@ -1,8 +1,8 @@
-import Item from './Item';
+import { _AbstractItem as Item } from './items';
 
 export default class Shop {
   /**
-   * 
+   *
    * @param {Item[]} someItems 
    */
   constructor(someItems) {
@@ -17,7 +17,7 @@ export default class Shop {
       item.updateQuality()
     });
 
-      return this.items;
+    return this.items;
   }
 
 }
