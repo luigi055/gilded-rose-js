@@ -49,20 +49,14 @@ export default class Shop {
 
 
         if (item.sellIn < 0) {
-          if (!isAgedBried && item.sellIn < 0) {
-            if (!isConcertBackstage) {
-              if (!isSulfuras) {
-              if (isMinQuality(item.quality)) {
-                  item.quality = item.quality - 1;
-                }
-              }
-            } else {
+          if (!isAgedBried) {
+            if (isMinQuality(item.quality) && !isSulfuras & !isConcertBackstage) {
+              item.quality = item.quality - 1;
+            }else {
               item.quality = item.quality - item.quality;
             }
-          } else {
-            if (!isMaxQuality(item.quality)) {
+          } else if (!isMaxQuality(item.quality)) {
               item.quality = item.quality + 1;
-            }
           }
         }
 
