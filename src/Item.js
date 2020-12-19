@@ -24,12 +24,23 @@ export default class Item {
   get quality() { return this._quality; }
   set quality(value) { this._quality = value; }
 
+  get isMaxQuality() {
+    return this.quality >= 50;
+  }
+
+  hasQuality() {
+    return this.quality > 0;
+  }
+
+  get hasPassedSellInDay() {
+    return this.sellIn <= 0;
+  }
+
   updateQuality() {
-    const isAgedBried = this.name === AGED_BRIED;
     const isConcertBackstage = this.name === CONCERT_BACKSTAGE
     const isMaxQuality = quality => quality >= 50;
     const hasQuality = quality => quality > 0;
-    const shouldDegradeQuality = hasQuality(this.quality) && !isAgedBried && !isConcertBackstage
+    const shouldDegradeQuality = hasQuality(this.quality) && !isConcertBackstage
     const hasPassedSellInDay = (sellIn) => sellIn <= 0;
 
         if (shouldDegradeQuality && !hasPassedSellInDay(this.sellIn)) {
@@ -70,14 +81,10 @@ export class AgedBrie extends Item {
   }
 
   updateQuality() {
-    const isMaxQuality = quality => quality >= 50;
-    const hasQuality = quality => quality > 0;
-    const hasPassedSellInDay = (sellIn) => sellIn <= 0;
-
-    if (!isMaxQuality(this.quality)){
+    if (!this.isMaxQuality){
       this.quality = this.quality + 1;
     }
-    if (hasPassedSellInDay(this.sellIn) && !isMaxQuality(this.quality)) {
+    if (this.hasPassedSellInDay && !this.isMaxQuality) {
       this.quality = this.quality + 1;
     }
 
