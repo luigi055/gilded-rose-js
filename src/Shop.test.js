@@ -1,5 +1,5 @@
-import Shop, { AGED_BRIED, SULFURAS, CONCERT_BACKSTAGE } from "./Shop";
-import Item from "./Item";
+import Shop from "./Shop";
+import Item, { AGED_BRIED, SULFURAS, CONCERT_BACKSTAGE } from "./Item";
 
 describe("Testing Shop class", () => {
   describe("Test cases for regular item", () => {
