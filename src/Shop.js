@@ -21,15 +21,17 @@ export default class Shop {
         const isAgedBried = item.name === AGED_BRIED;
         const isConcertBackstage = item.name === CONCERT_BACKSTAGE
         const isMaxQuality = quality => quality >= 50;
-        const isMinQuality = quality => quality > 0;
-        const shouldDegradeQuality = isMinQuality(item.quality) && !isSulfuras && !isAgedBried && !isConcertBackstage
+        const hasQuality = quality => quality > 0;
+        const shouldDegradeQuality = hasQuality(item.quality) && !isSulfuras && !isAgedBried && !isConcertBackstage
+        const hasPassedSellInDay = (sellIn) => sellIn <= 0;
 
         if (shouldDegradeQuality) {
           item.quality = item.quality - 1;
+          if (hasPassedSellInDay(item.sellIn)) {
+            item.quality--;
+          }
         }
-        if (isAgedBried && !isMaxQuality(item.quality)){
-          item.quality = item.quality + 1;
-        }
+
         if (isConcertBackstage) {
           if (item.sellIn > 10 && !isMaxQuality(item.quality)) {
             item.quality = item.quality +1
@@ -40,23 +42,20 @@ export default class Shop {
           if (item.sellIn <= 5 && !isMaxQuality(item.quality)) {
               item.quality = item.quality + 1;
           }
+          if (item.sellIn < 0) {
+            item.quality = 0;
+          }
         }
-
 
         if (!isSulfuras) {
           item.sellIn = item.sellIn - 1;
         }
 
+        if (isAgedBried && !isMaxQuality(item.quality)){
+          item.quality = item.quality + 1;
+          if (hasPassedSellInDay(item.sellIn)) {
+            item.quality = item.quality + 1;
 
-        if (item.sellIn < 0) {
-          if (!isAgedBried) {
-            if (isMinQuality(item.quality) && !isSulfuras & !isConcertBackstage) {
-              item.quality = item.quality - 1;
-            }else {
-              item.quality = item.quality - item.quality;
-            }
-          } else if (!isMaxQuality(item.quality)) {
-              item.quality = item.quality + 1;
           }
         }
 
