@@ -1,10 +1,11 @@
 import Shop from "./Shop";
 import Item from "./Item";
 
-const agedBrieName = "Aged Brie"
+const agedBrieName = "Aged Brie";
+const sulfurasName = "Sulfuras, Hand of Ragnaros";
 
 describe("Testing Shop class", () => {
-  describe("Testing a regular item", () => {
+  describe("Test cases for regular item", () => {
     const regularItemName = "regular item";
     it("should degrade the quality of the product by each day that it passes", () => {
       const item = new Item(regularItemName, 1, 3);
@@ -39,7 +40,7 @@ describe("Testing Shop class", () => {
     });
   });
 
-  describe(`Testing ${agedBrieName} item`, () => {
+  describe(`Test cases for${agedBrieName} item`, () => {
     it("should increase the quality by one every day", () => {
       const item = new Item(agedBrieName, 10, 10);
 
@@ -63,6 +64,17 @@ describe("Testing Shop class", () => {
       new Shop([item]).updateQuality();
 
       expect(item).toEqual(new Item(agedBrieName, -7, 50));
+    })
+  })
+
+  describe(`Test cases for ${sulfurasName} item`, () => {
+    it("should never decrease neither the sellIn days nor the quality", () => {
+      const item = new Item(sulfurasName, 0, 40);
+
+      new Shop([item]).updateQuality();
+      new Shop([item]).updateQuality();
+
+      expect(item).toEqual(new Item(sulfurasName, 0, 40));
     })
   })
 })
