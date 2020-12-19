@@ -3,6 +3,7 @@ import Item from "./Item";
 
 const agedBrieName = "Aged Brie";
 const sulfurasName = "Sulfuras, Hand of Ragnaros";
+const backstagePassesName = 'Backstage passes to a TAFKAL80ETC concert'
 
 describe("Testing Shop class", () => {
   describe("Test cases for regular item", () => {
@@ -47,7 +48,7 @@ describe("Testing Shop class", () => {
       new Shop([item]).updateQuality();
 
       expect(item).toEqual(new Item(agedBrieName, 9, 11));
-    })
+    });
 
     it("should quality increase twice as fast when the sellIn has passed", () => {
       const item = new Item(agedBrieName, -5, 10);
@@ -55,7 +56,7 @@ describe("Testing Shop class", () => {
       new Shop([item]).updateQuality();
 
       expect(item).toEqual(new Item(agedBrieName, -6, 12));
-    })
+    });
 
     it("should not increase the quality of the item more than 50", () => {
       const item = new Item(agedBrieName, -5, 50);
@@ -65,7 +66,7 @@ describe("Testing Shop class", () => {
 
       expect(item).toEqual(new Item(agedBrieName, -7, 50));
     })
-  })
+  });
 
   describe(`Test cases for ${sulfurasName} item`, () => {
     it("should never decrease neither the sellIn days nor the quality", () => {
@@ -76,5 +77,51 @@ describe("Testing Shop class", () => {
 
       expect(item).toEqual(new Item(sulfurasName, 0, 40));
     })
-  })
-})
+  });
+
+  describe(`Test cases for ${backstagePassesName} item`, () => {
+    it("should increase the quality by three when sellIn field is less or equal than 5", () => {
+      const item = new Item(backstagePassesName, 5, 10);
+
+      new Shop([item]).updateQuality();
+      new Shop([item]).updateQuality();
+
+      expect(item).toEqual(new Item(backstagePassesName, 3, 16));
+    });
+
+    it("should increase the quality by three when sellIn field is less or equal than 10", () => {
+      const item = new Item(backstagePassesName, 10, 10);
+
+      new Shop([item]).updateQuality();
+      new Shop([item]).updateQuality();
+
+      expect(item).toEqual(new Item(backstagePassesName, 8, 14));
+    });
+
+    it("should increase the quality by 1 when sellIn field larger than 10", () => {
+      const item = new Item(backstagePassesName, 12, 10);
+
+      new Shop([item]).updateQuality();
+      new Shop([item]).updateQuality();
+
+      expect(item).toEqual(new Item(backstagePassesName, 10, 12));
+    });
+
+    it("should not increase the quality more than 50", () => {
+      const item = new Item(backstagePassesName, 3, 48);
+
+      new Shop([item]).updateQuality();
+      new Shop([item]).updateQuality();
+
+      expect(item).toEqual(new Item(backstagePassesName, 1, 50));
+    });
+
+    it("should quality go to 0 when the sellIn day has passed", () => {
+      const item = new Item(backstagePassesName, -1, 48);
+
+      new Shop([item]).updateQuality();
+
+      expect(item).toEqual(new Item(backstagePassesName, -2, 0));
+    });
+  });
+});
