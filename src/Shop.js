@@ -20,38 +20,38 @@ export default class Shop {
         const isSulfuras = item.name === SULFURAS;
         const isAgedBried = item.name === AGED_BRIED;
         const isConcertBackstage = item.name === CONCERT_BACKSTAGE
+        const isMaxQuality = quality => quality >= 50
 
         if (!isAgedBried && !isConcertBackstage) {
-          if (item.quality > 0) {
-            if (!isSulfuras) {
-              item.quality = item.quality - 1;
-            }
+          if (item.quality > 0 && !isSulfuras) {
+            item.quality = item.quality - 1;
           }
-        } else {
-          if (item.quality < 50) {
+        } else if (!isMaxQuality(item.quality)){
             item.quality = item.quality + 1;
-            if (isConcertBackstage) {
-              if (item.sellIn < 11) {
-                if (item.quality < 50) {
-                  item.quality = item.quality + 1;
-                }
-              }
-              if (item.sellIn < 6) {
-                if (item.quality < 50) {
-                  item.quality = item.quality + 1;
-                }
-              }
-            }
+        }
+
+
+        if (isConcertBackstage) {
+          if (item.sellIn <= 10 && !isMaxQuality(item.quality)) {
+              item.quality = item.quality + 1;
+          }
+          if (item.sellIn <= 5 && !isMaxQuality(item.quality)) {
+              item.quality = item.quality + 1;
           }
         }
+
+
         if (!isSulfuras) {
           item.sellIn = item.sellIn - 1;
+          
         }
+
+
         if (item.sellIn < 0) {
-          if (!isAgedBried) {
+          if (!isAgedBried && item.sellIn < 0) {
             if (!isConcertBackstage) {
+              if (!isSulfuras) {
               if (item.quality > 0) {
-                if (!isSulfuras) {
                   item.quality = item.quality - 1;
                 }
               }
@@ -59,11 +59,12 @@ export default class Shop {
               item.quality = item.quality - item.quality;
             }
           } else {
-            if (item.quality < 50) {
+            if (!isMaxQuality(item.quality)) {
               item.quality = item.quality + 1;
             }
           }
         }
+        
         return item
       });
 
