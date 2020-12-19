@@ -1,7 +1,7 @@
-import { _AbstractItem } from "./abstract-item";
+import { Item } from "./item";
 
 export const CONCERT_BACKSTAGE = "Backstage passes to a TAFKAL80ETC concert";
-export class BackstageConcert extends _AbstractItem {
+export class BackstageConcert extends Item {
   constructor(sellIn, quality) {
     super(CONCERT_BACKSTAGE, sellIn, quality);
   }

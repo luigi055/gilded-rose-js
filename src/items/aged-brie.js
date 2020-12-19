@@ -1,7 +1,7 @@
-import { _AbstractItem } from "./abstract-item";
+import { Item } from "./item";
 
 export const AGED_BRIED = "Aged Brie";
-export class AgedBrie extends _AbstractItem {
+export class AgedBrie extends Item {
   constructor(sellIn, quality) {
     super(AGED_BRIED, sellIn, quality);
   }

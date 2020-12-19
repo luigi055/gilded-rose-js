@@ -1,6 +1,6 @@
-import { _AbstractItem } from "./abstract-item";
+import { Item } from "./item";
 
-export class RegularItem extends _AbstractItem {
+export class RegularItem extends Item {
   constructor(name, sellIn, quality) {
     super(name, sellIn, quality);
   }

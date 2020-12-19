@@ -1,7 +1,7 @@
-import { _AbstractItem } from "./abstract-item";
+import { Item } from "./item";
 
 export const SULFURAS = "Sulfuras, Hand of Ragnaros";
-export class Sulfuras extends _AbstractItem {
+export class Sulfuras extends Item {
   constructor(sellIn) {
     super(SULFURAS, sellIn, 80);
   }

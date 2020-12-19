@@ -1,4 +1,4 @@
-import { _AbstractItem as Item } from './items';
+import { Item } from './items';
 
 export default class Shop {
   /**
