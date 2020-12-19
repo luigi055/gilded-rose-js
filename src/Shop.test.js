@@ -1,5 +1,5 @@
 import Shop from "./Shop";
-import Item, { AGED_BRIED, SULFURAS, CONCERT_BACKSTAGE, Sulfuras, AgedBrie } from "./Item";
+import Item, { AGED_BRIED, SULFURAS, CONCERT_BACKSTAGE, Sulfuras, AgedBrie, BackstageConcert } from "./Item";
 
 describe("Testing Shop class", () => {
   describe("Test cases for regular item", () => {
@@ -86,47 +86,47 @@ describe("Testing Shop class", () => {
 
   describe(`Test cases for ${CONCERT_BACKSTAGE} item`, () => {
     it("should increase the quality by three when sellIn field is less or equal than 5", () => {
-      const item = new Item(CONCERT_BACKSTAGE, 5, 10);
+      const item = new BackstageConcert(5, 10);
 
       new Shop([item]).updateQuality();
       new Shop([item]).updateQuality();
 
-      expect(item).toEqual(new Item(CONCERT_BACKSTAGE, 3, 16));
+      expect(item).toEqual(new BackstageConcert(3, 16));
     });
 
     it("should increase the quality by two when sellIn field is less or equal than 10", () => {
-      const item = new Item(CONCERT_BACKSTAGE, 10, 10);
+      const item = new BackstageConcert(10, 10);
 
       new Shop([item]).updateQuality();
       new Shop([item]).updateQuality();
 
-      expect(item).toEqual(new Item(CONCERT_BACKSTAGE, 8, 14));
+      expect(item).toEqual(new BackstageConcert(8, 14));
     });
 
     it("should increase the quality by 1 when sellIn field larger than 10", () => {
-      const item = new Item(CONCERT_BACKSTAGE, 12, 10);
+      const item = new BackstageConcert(12, 10);
 
       new Shop([item]).updateQuality();
       new Shop([item]).updateQuality();
 
-      expect(item).toEqual(new Item(CONCERT_BACKSTAGE, 10, 12));
+      expect(item).toEqual(new BackstageConcert(10, 12));
     });
 
     it("should not increase the quality more than 50", () => {
-      const item = new Item(CONCERT_BACKSTAGE, 3, 48);
+      const item = new BackstageConcert(3, 48);
 
       new Shop([item]).updateQuality();
       new Shop([item]).updateQuality();
 
-      expect(item).toEqual(new Item(CONCERT_BACKSTAGE, 1, 50));
+      expect(item).toEqual(new BackstageConcert(1, 50));
     });
 
     it("should quality go to 0 when the sellIn day has passed", () => {
-      const item = new Item(CONCERT_BACKSTAGE, -1, 48);
+      const item = new BackstageConcert(-1, 48);
 
       new Shop([item]).updateQuality();
 
-      expect(item).toEqual(new Item(CONCERT_BACKSTAGE, -2, 0));
+      expect(item).toEqual(new BackstageConcert(-2, 0));
     });
   });
 });

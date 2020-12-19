@@ -28,12 +28,12 @@ export default class Item {
     return this.quality >= 50;
   }
 
-  hasQuality() {
-    return this.quality > 0;
-  }
-
   get hasPassedSellInDay() {
     return this.sellIn <= 0;
+  }
+
+  subtractOneDay() {
+    this.sellIn--
   }
 
   updateQuality() {
@@ -62,7 +62,7 @@ export default class Item {
           }
         }
 
-        this.sellIn = this.sellIn - 1;
+        this.subtractOneDay()
 
   }
 }
@@ -88,6 +88,30 @@ export class AgedBrie extends Item {
       this.quality = this.quality + 1;
     }
 
-    this.sellIn = this.sellIn - 1;
+    this.subtractOneDay()
+  }
+}
+
+
+export class BackstageConcert extends Item {
+  constructor(sellIn, quality) {
+    super(CONCERT_BACKSTAGE, sellIn, quality);
+  }
+
+  updateQuality() {
+    if (this.sellIn > 10 && !this.isMaxQuality) {
+      this.quality = this.quality +1
+    }
+    if (this.sellIn <= 10 && !this.isMaxQuality) {
+        this.quality = this.quality + 2;
+    }
+    if (this.sellIn <= 5 && !this.isMaxQuality) {
+        this.quality = this.quality + 1;
+    }
+    if (this.sellIn < 0) {
+      this.quality = 0;
+    }
+
+    this.subtractOneDay();
   }
 }
