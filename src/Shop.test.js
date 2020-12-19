@@ -1,5 +1,5 @@
 import Shop from "./Shop";
-import Item, { AGED_BRIED, SULFURAS, CONCERT_BACKSTAGE, Sulfuras } from "./Item";
+import Item, { AGED_BRIED, SULFURAS, CONCERT_BACKSTAGE, Sulfuras, AgedBrie } from "./Item";
 
 describe("Testing Shop class", () => {
   describe("Test cases for regular item", () => {
@@ -39,28 +39,28 @@ describe("Testing Shop class", () => {
 
   describe(`Test cases for${AGED_BRIED} item`, () => {
     it("should increase the quality by one every day", () => {
-      const item = new Item(AGED_BRIED, 10, 10);
+      const item = new AgedBrie(10, 10);
 
       new Shop([item]).updateQuality();
 
-      expect(item).toEqual(new Item(AGED_BRIED, 9, 11));
+      expect(item).toEqual(new AgedBrie(9, 11));
     });
 
     it("should quality increase twice as fast when the sellIn has passed", () => {
-      const item = new Item(AGED_BRIED, -5, 10);
+      const item = new AgedBrie(-5, 10);
 
       new Shop([item]).updateQuality();
 
-      expect(item).toEqual(new Item(AGED_BRIED, -6, 12));
+      expect(item).toEqual(new AgedBrie(-6, 12));
     });
 
     it("should not increase the quality of the item more than 50", () => {
-      const item = new Item(AGED_BRIED, -5, 50);
+      const item = new AgedBrie(-5, 50);
 
       new Shop([item]).updateQuality();
       new Shop([item]).updateQuality();
 
-      expect(item).toEqual(new Item(AGED_BRIED, -7, 50));
+      expect(item).toEqual(new AgedBrie(-7, 50));
     })
   });
 

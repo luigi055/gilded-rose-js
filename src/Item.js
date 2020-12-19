@@ -49,13 +49,6 @@ export default class Item {
           if (this.sellIn < 0) {
             this.quality = 0;
           }
-        } else if (isAgedBried){
-          if (!isMaxQuality(this.quality)){
-            this.quality = this.quality + 1;
-          }
-          if (hasPassedSellInDay(this.sellIn) && !isMaxQuality(this.quality)) {
-            this.quality = this.quality + 1;
-          }
         }
 
         this.sellIn = this.sellIn - 1;
@@ -69,4 +62,25 @@ export class Sulfuras extends Item {
   }
 
   updateQuality() {}
+}
+
+export class AgedBrie extends Item {
+  constructor(sellIn, quality) {
+    super(AGED_BRIED, sellIn, quality);
+  }
+
+  updateQuality() {
+    const isMaxQuality = quality => quality >= 50;
+    const hasQuality = quality => quality > 0;
+    const hasPassedSellInDay = (sellIn) => sellIn <= 0;
+
+    if (!isMaxQuality(this.quality)){
+      this.quality = this.quality + 1;
+    }
+    if (hasPassedSellInDay(this.sellIn) && !isMaxQuality(this.quality)) {
+      this.quality = this.quality + 1;
+    }
+
+    this.sellIn = this.sellIn - 1;
+  }
 }
