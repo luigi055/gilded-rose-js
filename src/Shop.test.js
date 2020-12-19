@@ -1,4 +1,4 @@
-import Shop from "./Shop";
+import Shop from "./shop";
 import { 
   AGED_BRIED,
   SULFURAS,
