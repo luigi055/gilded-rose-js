@@ -1,5 +1,8 @@
 import Item from './Item';
 
+export const AGED_BRIED = "Aged Brie";
+export const SULFURAS = "Sulfuras, Hand of Ragnaros";
+export const CONCERT_BACKSTAGE = "Backstage passes to a TAFKAL80ETC concert";
 export default class Shop {
   /**
    * 
@@ -14,16 +17,16 @@ export default class Shop {
 
   updateQuality() {
     this.items.forEach(item => {
-        if (item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert') {
+        if (item.name != AGED_BRIED && item.name != CONCERT_BACKSTAGE) {
           if (item.quality > 0) {
-            if (item.name != 'Sulfuras, Hand of Ragnaros') {
+            if (item.name != SULFURAS) {
               item.quality = item.quality - 1;
             }
           }
         } else {
           if (item.quality < 50) {
             item.quality = item.quality + 1;
-            if (item.name == 'Backstage passes to a TAFKAL80ETC concert') {
+            if (item.name == CONCERT_BACKSTAGE) {
               if (item.sellIn < 11) {
                 if (item.quality < 50) {
                   item.quality = item.quality + 1;
@@ -37,14 +40,14 @@ export default class Shop {
             }
           }
         }
-        if (item.name != 'Sulfuras, Hand of Ragnaros') {
+        if (item.name != SULFURAS) {
           item.sellIn = item.sellIn - 1;
         }
         if (item.sellIn < 0) {
-          if (item.name != 'Aged Brie') {
-            if (item.name != 'Backstage passes to a TAFKAL80ETC concert') {
+          if (item.name != AGED_BRIED) {
+            if (item.name != CONCERT_BACKSTAGE) {
               if (item.quality > 0) {
-                if (item.name != 'Sulfuras, Hand of Ragnaros') {
+                if (item.name != SULFURAS) {
                   item.quality = item.quality - 1;
                 }
               }
