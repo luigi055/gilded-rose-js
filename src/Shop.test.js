@@ -3,10 +3,12 @@ import {
   AGED_BRIED,
   SULFURAS,
   CONCERT_BACKSTAGE,
+  CONJURED,
   Sulfuras,
   AgedBrie,
   BackstageConcert,
-  RegularItem } from "./items";
+  RegularItem,
+  Conjured } from "./items";
 
 describe("Testing Shop class", () => {
   describe("Test cases for regular item", () => {
@@ -134,6 +136,40 @@ describe("Testing Shop class", () => {
       new Shop([item]).updateQuality();
 
       expect(item).toEqual(new BackstageConcert(-2, 0));
+    });
+  });
+
+  describe(`Test cases for ${CONJURED} item`, () => {
+    it("should degrade the quality by 2 of the product by each day that it passes", () => {
+      const item = new Conjured(5, 10);
+
+      new Shop([item]).updateQuality();
+
+      expect(item).toEqual(new Conjured(4, 8));
+    });
+
+    it("should not degrade the quality below to 0 when the item already has quality 0", () => {
+      const item = new Conjured(1, 0);
+
+      new Shop([item]).updateQuality();
+
+      expect(item).toEqual(new Conjured(0, 0));
+    });
+
+    it("should quality decrease by 4 when the sellIn has passed", () => {
+      const item = new Conjured(0, 5);
+
+      new Shop([item]).updateQuality();
+
+      expect(item).toEqual(new Conjured(-1, 1));
+    });
+
+    it("should not degrade the quality below 0 once the sell by date has passed", () => {
+      const item = new Conjured(0, 0);
+
+      new Shop([item]).updateQuality();
+
+      expect(item).toEqual(new Conjured(-1, 0));
     });
   });
 });
