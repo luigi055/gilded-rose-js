@@ -16,17 +16,21 @@ export default class Shop {
   set items(items) { return this._items = items }
 
   updateQuality() {
-    this.items.forEach(item => {
-        if (item.name != AGED_BRIED && item.name != CONCERT_BACKSTAGE) {
+    this.items = this.items.map(item => {
+        const isSulfuras = item.name === SULFURAS;
+        const isAgedBried = item.name === AGED_BRIED;
+        const isConcertBackstage = item.name === CONCERT_BACKSTAGE
+
+        if (!isAgedBried && !isConcertBackstage) {
           if (item.quality > 0) {
-            if (item.name != SULFURAS) {
+            if (!isSulfuras) {
               item.quality = item.quality - 1;
             }
           }
         } else {
           if (item.quality < 50) {
             item.quality = item.quality + 1;
-            if (item.name == CONCERT_BACKSTAGE) {
+            if (isConcertBackstage) {
               if (item.sellIn < 11) {
                 if (item.quality < 50) {
                   item.quality = item.quality + 1;
@@ -40,14 +44,14 @@ export default class Shop {
             }
           }
         }
-        if (item.name != SULFURAS) {
+        if (!isSulfuras) {
           item.sellIn = item.sellIn - 1;
         }
         if (item.sellIn < 0) {
-          if (item.name != AGED_BRIED) {
-            if (item.name != CONCERT_BACKSTAGE) {
+          if (!isAgedBried) {
+            if (!isConcertBackstage) {
               if (item.quality > 0) {
-                if (item.name != SULFURAS) {
+                if (!isSulfuras) {
                   item.quality = item.quality - 1;
                 }
               }
@@ -60,6 +64,7 @@ export default class Shop {
             }
           }
         }
+        return item
       });
 
       return this.items;
