@@ -1,5 +1,5 @@
 import Shop from "./Shop";
-import Item, { AGED_BRIED, SULFURAS, CONCERT_BACKSTAGE } from "./Item";
+import Item, { AGED_BRIED, SULFURAS, CONCERT_BACKSTAGE, Sulfuras } from "./Item";
 
 describe("Testing Shop class", () => {
   describe("Test cases for regular item", () => {
@@ -66,12 +66,21 @@ describe("Testing Shop class", () => {
 
   describe(`Test cases for ${SULFURAS} item`, () => {
     it("should never decrease neither the sellIn days nor the quality", () => {
-      const item = new Item(SULFURAS, 0, 40);
+      const item = new Sulfuras(0);
 
       new Shop([item]).updateQuality();
       new Shop([item]).updateQuality();
 
-      expect(item).toEqual(new Item(SULFURAS, 0, 40));
+      expect(item).toEqual(new Sulfuras(0));
+    });
+
+    it("should always have quantity of 80", () => {
+      const item = new Sulfuras(0);
+
+      new Shop([item]).updateQuality();
+      new Shop([item]).updateQuality();
+
+      expect(item.quality).toBe(80);
     })
   });
 

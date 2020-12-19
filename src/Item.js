@@ -25,12 +25,11 @@ export default class Item {
   set quality(value) { this._quality = value; }
 
   updateQuality() {
-    const isSulfuras = this.name === SULFURAS;
     const isAgedBried = this.name === AGED_BRIED;
     const isConcertBackstage = this.name === CONCERT_BACKSTAGE
     const isMaxQuality = quality => quality >= 50;
     const hasQuality = quality => quality > 0;
-    const shouldDegradeQuality = hasQuality(this.quality) && !isSulfuras && !isAgedBried && !isConcertBackstage
+    const shouldDegradeQuality = hasQuality(this.quality) && !isAgedBried && !isConcertBackstage
     const hasPassedSellInDay = (sellIn) => sellIn <= 0;
 
         if (shouldDegradeQuality && !hasPassedSellInDay(this.sellIn)) {
@@ -59,8 +58,15 @@ export default class Item {
           }
         }
 
-        if (!isSulfuras) {
-          this.sellIn = this.sellIn - 1;
-        }
+        this.sellIn = this.sellIn - 1;
+
   }
+}
+
+export class Sulfuras extends Item {
+  constructor(sellIn) {
+    super(SULFURAS, sellIn, 80);
+  }
+
+  updateQuality() {}
 }
