@@ -7,11 +7,14 @@ export class BackstageConcert extends _AbstractItem {
   }
 
   updateQuality() {
+    const isHighDemand = this.sellIn > 5 && this.sellIn <= 10 && !this.isMaxQuality
+    const isTheHighestDemand = this.sellIn >= 0 && this.sellIn <= 5 && !this.isMaxQuality
+
     if (this.sellIn < 0) {
       this.quality = 0;
-    } else if (this.sellIn > 5 && this.sellIn <= 10 && !this.isMaxQuality) {
+    } else if (isHighDemand) {
       this.addQuality(2);
-    } else if (this.sellIn >= 0 && this.sellIn <= 5 && !this.isMaxQuality) {
+    } else if (isTheHighestDemand) {
       this.addQuality(3);
     } else {
       this.addQuality(1);
