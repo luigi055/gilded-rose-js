@@ -6,8 +6,11 @@ export default class Shop {
    * @param {Item[]} someItems 
    */
   constructor(someItems) {
-    this.items = someItems;
+    this._items = someItems;
   }
+
+  get items() { return this._items; }
+  set items(items) { return this._items = items }
 
   updateQuality() {
     for (var i = 0; i < this.items.length; i++) {

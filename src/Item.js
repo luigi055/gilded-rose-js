@@ -1,6 +1,6 @@
 export default class Item {
   /**
-   * 
+   *
    * @param {string} name 
    * @param {number} sellIn 
    * @param {number} quality 
