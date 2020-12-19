@@ -36,6 +36,11 @@ class _AbstractItem {
     this.sellIn--
   }
 
+  addQuality(numberToAdd) {
+    this.quality = this.quality + numberToAdd;
+  }
+
+  // Abstract method
   updateQuality() {}
 }
 
@@ -54,10 +59,10 @@ export class AgedBrie extends _AbstractItem {
 
   updateQuality() {
     if (!this.isMaxQuality){
-      this.quality = this.quality + 1;
+      this.addQuality(1)
     }
     if (this.hasPassedSellInDay && !this.isMaxQuality) {
-      this.quality = this.quality + 1;
+      this.addQuality(1)
     }
 
     this.subtractOneDay()
@@ -72,13 +77,13 @@ export class BackstageConcert extends _AbstractItem {
 
   updateQuality() {
     if (this.sellIn > 10 && !this.isMaxQuality) {
-      this.quality = this.quality +1
+      this.addQuality(1);
     }
     if (this.sellIn <= 10 && !this.isMaxQuality) {
-        this.quality = this.quality + 2;
+      this.addQuality(2);
     }
     if (this.sellIn <= 5 && !this.isMaxQuality) {
-        this.quality = this.quality + 1;
+      this.addQuality(1);
     }
     if (this.sellIn < 0) {
       this.quality = 0;
@@ -95,9 +100,9 @@ export class RegularItem extends _AbstractItem {
 
   updateQuality() {
     if (this.quality > 0 && !this.hasPassedSellInDay) {
-      this.quality = this.quality - 1;
+      this.addQuality(-1);
     } else if (this.quality > 0 && this.hasPassedSellInDay) {
-      this.quality = this.quality - 2;
+      this.addQuality(-2);
     }
     this.subtractOneDay()
   }
