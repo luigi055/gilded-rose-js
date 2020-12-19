@@ -20,20 +20,22 @@ export default class Shop {
         const isSulfuras = item.name === SULFURAS;
         const isAgedBried = item.name === AGED_BRIED;
         const isConcertBackstage = item.name === CONCERT_BACKSTAGE
-        const isMaxQuality = quality => quality >= 50
+        const isMaxQuality = quality => quality >= 50;
+        const isMinQuality = quality => quality > 0;
+        const shouldDegradeQuality = isMinQuality(item.quality) && !isSulfuras && !isAgedBried && !isConcertBackstage
 
-        if (!isAgedBried && !isConcertBackstage) {
-          if (item.quality > 0 && !isSulfuras) {
-            item.quality = item.quality - 1;
-          }
-        } else if (!isMaxQuality(item.quality)){
-            item.quality = item.quality + 1;
+        if (shouldDegradeQuality) {
+          item.quality = item.quality - 1;
         }
-
-
+        if (isAgedBried && !isMaxQuality(item.quality)){
+          item.quality = item.quality + 1;
+        }
         if (isConcertBackstage) {
+          if (item.sellIn > 10 && !isMaxQuality(item.quality)) {
+            item.quality = item.quality +1
+          }
           if (item.sellIn <= 10 && !isMaxQuality(item.quality)) {
-              item.quality = item.quality + 1;
+              item.quality = item.quality + 2;
           }
           if (item.sellIn <= 5 && !isMaxQuality(item.quality)) {
               item.quality = item.quality + 1;
@@ -43,7 +45,6 @@ export default class Shop {
 
         if (!isSulfuras) {
           item.sellIn = item.sellIn - 1;
-          
         }
 
 
@@ -51,7 +52,7 @@ export default class Shop {
           if (!isAgedBried && item.sellIn < 0) {
             if (!isConcertBackstage) {
               if (!isSulfuras) {
-              if (item.quality > 0) {
+              if (isMinQuality(item.quality)) {
                   item.quality = item.quality - 1;
                 }
               }
@@ -64,7 +65,7 @@ export default class Shop {
             }
           }
         }
-        
+
         return item
       });
 

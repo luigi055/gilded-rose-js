@@ -85,7 +85,7 @@ describe("Testing Shop class", () => {
       expect(item).toEqual(new Item(CONCERT_BACKSTAGE, 3, 16));
     });
 
-    it("should increase the quality by three when sellIn field is less or equal than 10", () => {
+    it("should increase the quality by two when sellIn field is less or equal than 10", () => {
       const item = new Item(CONCERT_BACKSTAGE, 10, 10);
 
       new Shop([item]).updateQuality();
