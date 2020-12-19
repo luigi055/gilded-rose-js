@@ -1,4 +1,10 @@
+import Item from './Item';
+
 export default class Shop {
+  /**
+   * 
+   * @param {Item[]} someItems 
+   */
   constructor(someItems) {
     this.items = someItems;
   }
