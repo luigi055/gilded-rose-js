@@ -10,7 +10,6 @@ export default class Shop {
   }
 
   get items() { return this._items; }
-  set items(items) { return this._items = items; }
 
   updateQuality() {
     this.items.forEach(item => {
