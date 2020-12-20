@@ -8,7 +8,6 @@ import {
 
 describe("Testing Shop class", () => {
   describe("Test cases for regular item", () => {
-    const regularItemName = "regular item";
     it("should degrade the quality of the product by each day that it passes", () => {
       const item = new RegularItem(1, 3);
 
@@ -166,6 +165,33 @@ describe("Testing Shop class", () => {
       new Shop([item]).updateQuality();
 
       expect(item).toEqual(new Conjured(-1, 0));
+    });
+  });
+
+  describe("Testing all items together", () => {
+    it("update the quality of all items", () => {
+      const agedBrie = new AgedBrie(-5,10);
+      const regularItem = new RegularItem(5,10);
+      const sulfuras = new Sulfuras(5);
+      const backstageConcert = new BackstageConcert(-1,45);
+      const conjuredItem = new Conjured(-1,20);
+      const anotherRegularItem = new RegularItem(5,25);
+
+      new Shop([
+        agedBrie,
+        regularItem,
+        sulfuras,
+        backstageConcert,
+        conjuredItem,
+        anotherRegularItem
+      ]).updateQuality();
+
+      expect(agedBrie.quality).toEqual(12);
+      expect(regularItem.quality).toEqual(9);
+      expect(sulfuras.quality).toEqual(80);
+      expect(backstageConcert.quality).toEqual(0);
+      expect(conjuredItem.quality).toEqual(16);
+      expect(anotherRegularItem.quality).toEqual(24);
     });
   });
 });
