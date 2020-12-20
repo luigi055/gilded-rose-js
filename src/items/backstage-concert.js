@@ -8,9 +8,9 @@ export class BackstageConcert extends Item {
 
   updateQuality() {
     const isHighDemand = this.sellIn > 5 && this.sellIn <= 10;
-    const isTheHighestDemand = this.sellIn >= 0 && this.sellIn <= 5;
+    const isTheHighestDemand = this.sellIn <= 5;
 
-    if (this.sellIn <= 0) {
+    if (this.sellIn < 0) {
       this.quality = 0;
     } else if (isHighDemand) {
       this.addQuality(2);
