@@ -4,9 +4,9 @@ const MIN_QUALITY = 0;
 export class Item {
   /**
    *
-   * @param {string} name 
-   * @param {number} sellIn 
-   * @param {number} quality 
+   * @param {string} name
+   * @param {number} sellIn
+   * @param {number} quality
    */
   constructor (name, sellIn, quality) {
     this._name = name;
@@ -32,7 +32,7 @@ export class Item {
   }
 
   subtractOneDay() {
-    this.sellIn--
+    this.sellIn--;
   }
 
   addQuality(numberToAdd) {

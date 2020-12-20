@@ -8,11 +8,11 @@ export class AgedBrie extends Item {
 
   updateQuality() {
     if (this.hasPassedSellInDay) {
-      this.addQuality(2)
+      this.addQuality(2);
     } else {
-      this.addQuality(1)
+      this.addQuality(1);
     }
 
-    this.subtractOneDay()
+    this.subtractOneDay();
   }
 }
