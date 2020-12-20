@@ -1,8 +1,8 @@
 import { Item } from "./item";
 
 export class RegularItem extends Item {
-  constructor(name, sellIn, quality) {
-    super(name, sellIn, quality);
+  constructor(sellIn, quality) {
+    super(sellIn, quality);
   }
 
   updateQuality() {

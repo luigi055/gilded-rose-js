@@ -1,9 +1,8 @@
 import { Item } from "./item";
 
-export const CONJURED = "Conjured";
 export class Conjured extends Item {
   constructor(sellIn, quality) {
-    super(CONJURED, sellIn, quality);
+    super(sellIn, quality);
   }
 
   updateQuality() {

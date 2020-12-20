@@ -12,8 +12,7 @@ export class Item {
    * @param {number} sellIn
    * @param {number} quality
    */
-  constructor (name, sellIn, quality) {
-    this._name = name;
+  constructor (sellIn, quality) {
     this._sellIn = sellIn;
     this._quality = quality;
   }

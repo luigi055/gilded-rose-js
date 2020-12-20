@@ -1,9 +1,7 @@
 import { Item } from "./item";
-
-export const AGED_BRIED = "Aged Brie";
 export class AgedBrie extends Item {
   constructor(sellIn, quality) {
-    super(AGED_BRIED, sellIn, quality);
+    super(sellIn, quality);
   }
 
   updateQuality() {

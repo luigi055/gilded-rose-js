@@ -1,9 +1,5 @@
 import Shop from "./shop";
 import { 
-  AGED_BRIED,
-  SULFURAS,
-  CONCERT_BACKSTAGE,
-  CONJURED,
   Sulfuras,
   AgedBrie,
   BackstageConcert,
@@ -14,39 +10,39 @@ describe("Testing Shop class", () => {
   describe("Test cases for regular item", () => {
     const regularItemName = "regular item";
     it("should degrade the quality of the product by each day that it passes", () => {
-      const item = new RegularItem(regularItemName, 1, 3);
+      const item = new RegularItem(1, 3);
 
       new Shop([item]).updateQuality();
 
-      expect(item).toEqual(new RegularItem(regularItemName, 0, 2));
+      expect(item).toEqual(new RegularItem(0, 2));
     });
 
     it("should not degrade the quality below to 0 when the item already has quality 0", () => {
-      const item = new RegularItem(regularItemName, 1, 0);
+      const item = new RegularItem(1, 0);
 
       new Shop([item]).updateQuality();
 
-      expect(item).toEqual(new RegularItem(regularItemName, 0, 0));
+      expect(item).toEqual(new RegularItem(0, 0));
     });
 
     it("should quality decrease twice as fast when the sellIn has passed", () => {
-      const item = new RegularItem(regularItemName, 0, 5);
+      const item = new RegularItem(0, 5);
 
       new Shop([item]).updateQuality();
 
-      expect(item).toEqual(new RegularItem(regularItemName, -1, 3));
+      expect(item).toEqual(new RegularItem(-1, 3));
     });
 
     it("should not degrade the quality below 0 once the sell by date has passed", () => {
-      const item = new RegularItem(regularItemName, 0, 0);
+      const item = new RegularItem(0, 0);
 
       new Shop([item]).updateQuality();
 
-      expect(item).toEqual(new RegularItem(regularItemName, -1, 0));
+      expect(item).toEqual(new RegularItem(-1, 0));
     });
   });
 
-  describe(`Test cases for${AGED_BRIED} item`, () => {
+  describe(`Test cases for AgedBrie item`, () => {
     it("should increase the quality by one every day", () => {
       const item = new AgedBrie(10, 10);
 
@@ -73,7 +69,7 @@ describe("Testing Shop class", () => {
     })
   });
 
-  describe(`Test cases for ${SULFURAS} item`, () => {
+  describe(`Test cases for Sulfuras item`, () => {
     it("should never decrease neither the sellIn days nor the quality", () => {
       const item = new Sulfuras(0);
 
@@ -93,7 +89,7 @@ describe("Testing Shop class", () => {
     })
   });
 
-  describe(`Test cases for ${CONCERT_BACKSTAGE} item`, () => {
+  describe(`Test cases for BackstageConcert item`, () => {
     it("should increase the quality by three when sellIn field is less or equal than 5", () => {
       const item = new BackstageConcert(5, 10);
 
@@ -139,7 +135,7 @@ describe("Testing Shop class", () => {
     });
   });
 
-  describe(`Test cases for ${CONJURED} item`, () => {
+  describe(`Test cases for Conjured item`, () => {
     it("should degrade the quality by 2 of the product by each day that it passes", () => {
       const item = new Conjured(5, 10);
 
